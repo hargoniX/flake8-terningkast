@@ -10,7 +10,7 @@ class TerningkastPlugin(base.BaseFormatter):
     """Terninkast code rater."""
 
     name = "terningkast"
-    version = "0.0.1"
+    version = "1.0"
     error_format = '%(path)s:%(row)d:%(col)d: %(code)s %(text)s'
 
     def after_init(self):
@@ -22,18 +22,18 @@ class TerningkastPlugin(base.BaseFormatter):
             raise Exception("No git repo detected")
 
         stdout = process.stdout.read().decode()
+        self.errors = 0
         if stdout == "":
             self.changes = 0
-            self.errors = 0
-            return
-
-        stats = stdout.splitlines()[len(stdout.splitlines())-1]
-
-        if "+" in stats.split(",")[1]:
-            self.changes = int(stats.split(",")[1].split(" ")[1])
         else:
-            self.changes = 0
-        self.errors = 0
+            # Parse the changes out of the git diff
+            # And set to 0 if no changes are found
+            stats = stdout.splitlines()[len(stdout.splitlines())-1]
+
+            if "+" in stats.split(",")[1]:
+                self.changes = int(stats.split(",")[1].split(" ")[1])
+            else:
+                self.changes = 0
 
     def handle(self, error):
         """Handle a single error."""
