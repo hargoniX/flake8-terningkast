@@ -74,4 +74,3 @@ class TerningkastPlugin(base.BaseFormatter):
                 dice5()
             elif terningkast == 6:
                 dice6()
-def makeerror():pass
