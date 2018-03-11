@@ -22,18 +22,17 @@ setup(
         "Intended Audience :: Developers",
         "Topic :: Software Development :: Linter",
         "License :: OSI Approved :: MIT License",
-        "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.4",
-        "Programming Language :: Python :: 3.5",
         "Programming Language :: Python :: 3.6",
     ],
     keywords=["terningkast", "flake8", "code rating"],
     packages=["flake8_terningkast"],
-    install_requires=["flake8"],
+    install_requires=["flake8", "dulwich"],
     entry_points={
         'flake8.report': [
             "terningkast = flake8_terningkast:TerningkastPlugin",
         ],
     },
-
+    package_data={
+        "flake8_terningkast": ["images/*"]
+    }
 )

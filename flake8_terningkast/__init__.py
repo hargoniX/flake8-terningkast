@@ -1,4 +1,7 @@
 from flake8.formatting import base
+from .dice import dice1, dice2, dice3, dice4, dice5, dice6
+
+import subprocess
 
 
 class TerningkastPlugin(base.BaseFormatter):
@@ -9,7 +12,17 @@ class TerningkastPlugin(base.BaseFormatter):
 
     def after_init(self):
         """Initialize the plugin."""
-        print("after init")
+        cmd = "git diff --stat HEAD"
+        process = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE)
+        process.wait()
+        if process.returncode:
+            raise Exception("No git repo detected")
+        stdout = process.stdout.read()
+        stats = stdout.splitlines()[len(stdout.splitlines())-1].decode()
+        if "+" in stats.split(",")[1]:
+            self.changes = stats.split(",")[1].split(" ")[1]
+        else:
+            self.changes = 0
         self.errors = 0
 
     def handle(self, error):
