@@ -22,6 +22,7 @@ class TerningkastPlugin(base.BaseFormatter):
         print("stdout: "+stdout)
         if stdout == "":
             self.changes = 0
+            self.errors = 0
             return
 
         stats = stdout.splitlines()[len(stdout.splitlines())-1]
