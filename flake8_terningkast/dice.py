@@ -6,7 +6,6 @@ base_path = os.path.dirname(os.path.realpath(__file__))+"/images/"
 def dice1():
     """Catimg dice with 1."""
     path_dice1 = base_path + "terningkast1.png"
-    print(path_dice1)
     os.system(f"catimg -w 80 {path_dice1}")  # noqa: B605, B607
 
 
