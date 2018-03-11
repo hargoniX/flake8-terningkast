@@ -9,3 +9,5 @@ Install python requirements via
 pip install -r requirements.txt
 ```
 and `catimg` from here: https://github.com/posva/catimg
+## TODO
+* Git hook generator
