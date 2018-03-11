@@ -18,13 +18,13 @@ class TerningkastPlugin(base.BaseFormatter):
         if process.returncode:
             raise Exception("No git repo detected")
 
-        stdout = process.stdout.read()
+        stdout = process.stdout.read().decode()
         print("stdout: "+stdout)
         if stdout == "":
             self.changes = 0
             return
 
-        stats = stdout.splitlines()[len(stdout.splitlines())-1].decode()
+        stats = stdout.splitlines()[len(stdout.splitlines())-1]
 
         if "+" in stats.split(",")[1]:
             self.changes = stats.split(",")[1].split(" ")[1]
