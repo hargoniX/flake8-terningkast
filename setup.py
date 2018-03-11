@@ -26,7 +26,7 @@ setup(
     ],
     keywords=["terningkast", "flake8", "code rating"],
     packages=["flake8_terningkast"],
-    install_requires=["flake8", "dulwich"],
+    install_requires=["flake8"],
     entry_points={
         'flake8.report': [
             "terningkast = flake8_terningkast:TerningkastPlugin",
