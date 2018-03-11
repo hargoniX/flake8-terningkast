@@ -19,7 +19,7 @@ class TerningkastPlugin(base.BaseFormatter):
             raise Exception("No git repo detected")
 
         stdout = process.stdout.read()
-        
+        print("stdout: "+stdout)
         if stdout == "":
             self.changes = 0
             return
