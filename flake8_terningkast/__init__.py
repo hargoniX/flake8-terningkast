@@ -3,7 +3,7 @@ import subprocess # noqa B404
 
 from flake8.formatting import base
 
-from .dice import dice1, dice2, dice3, dice4, dice5, dice6
+from .dice import dice
 
 
 class TerningkastPlugin(base.BaseFormatter):
@@ -59,18 +59,7 @@ class TerningkastPlugin(base.BaseFormatter):
         print(f"Errors: {self.errors}")
         print("And your Terningkast is:")
         if self.errors == 0 or self.changes == 0:
-            dice6()
+            dice(6)
         else:
             terningkast = 6-math.ceil(((self.errors/self.changes)*100)/16.5)
-            if terningkast == 1:
-                dice1()
-            elif terningkast == 2:
-                dice2()
-            elif terningkast == 3:
-                dice3()
-            elif terningkast == 4:
-                dice4()
-            elif terningkast == 5:
-                dice5()
-            elif terningkast == 6:
-                dice6()
+            dice(terningkast)
