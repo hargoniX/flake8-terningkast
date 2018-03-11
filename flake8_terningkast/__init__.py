@@ -8,7 +8,6 @@ from .dice import dice1, dice2, dice3, dice4, dice5, dice6
 
 class TerningkastPlugin(base.BaseFormatter):
     """Terninkast code rater."""
-
     name = "terningkast"
     version = "1.0"
     error_format = '%(path)s:%(row)d:%(col)d: %(code)s %(text)s'
@@ -75,3 +74,4 @@ class TerningkastPlugin(base.BaseFormatter):
                 dice5()
             elif terningkast == 6:
                 dice6()
+def makeerror():pass
