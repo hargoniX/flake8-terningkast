@@ -28,7 +28,7 @@ setup(
         "Programming Language :: Python :: 3.6",
     ],
     keywords=["terningkast", "flake8", "code rating"],
-    py_modules="flake8_terningkast.py",
+    packages=["flake8_terningkast"],
     install_requires=["flake8"],
     entry_points={
         'flake8.report': [
