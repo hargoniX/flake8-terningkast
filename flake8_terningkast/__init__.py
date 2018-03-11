@@ -1,11 +1,14 @@
-from flake8.formatting import base
-from .dice import dice1, dice2, dice3, dice4, dice5, dice6
+import math
+import subprocess # noqa B404
 
-import subprocess
+from flake8.formatting import base
+
+from .dice import dice1, dice2, dice3, dice4, dice5, dice6
 
 
 class TerningkastPlugin(base.BaseFormatter):
-    """Terninkast code rater"""
+    """Terninkast code rater."""
+
     name = "terningkast"
     version = "0.0.1"
     error_format = '%(path)s:%(row)d:%(col)d: %(code)s %(text)s'
@@ -13,13 +16,12 @@ class TerningkastPlugin(base.BaseFormatter):
     def after_init(self):
         """Initialize the plugin."""
         cmd = "git diff --stat HEAD"
-        process = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE)
+        process = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE) # noqa B602
         process.wait()
         if process.returncode:
             raise Exception("No git repo detected")
 
         stdout = process.stdout.read().decode()
-        print("stdout: "+stdout)
         if stdout == "":
             self.changes = 0
             self.errors = 0
@@ -28,7 +30,7 @@ class TerningkastPlugin(base.BaseFormatter):
         stats = stdout.splitlines()[len(stdout.splitlines())-1]
 
         if "+" in stats.split(",")[1]:
-            self.changes = stats.split(",")[1].split(" ")[1]
+            self.changes = int(stats.split(",")[1].split(" ")[1])
         else:
             self.changes = 0
         self.errors = 0
@@ -53,4 +55,23 @@ class TerningkastPlugin(base.BaseFormatter):
 
     def stop(self):
         """Generate report(terningkast)."""
-        print("BYE")
+        print("\n"*4)
+        print(f"Changes: {self.changes}")
+        print(f"Errors: {self.errors}")
+        print("And your Terningkast is:")
+        if self.errors == 0 or self.changes == 0:
+            dice6()
+        else:
+            terningkast = 6-math.ceil(((self.errors/self.changes)*100)/16.5)
+            if terningkast == 1:
+                dice1()
+            elif terningkast == 2:
+                dice2()
+            elif terningkast == 3:
+                dice3()
+            elif terningkast == 4:
+                dice4()
+            elif terningkast == 5:
+                dice5()
+            elif terningkast == 6:
+                dice6()
