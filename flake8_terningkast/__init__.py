@@ -62,4 +62,6 @@ class TerningkastPlugin(base.BaseFormatter):
             dice(6)
         else:
             terningkast = 6-math.ceil(((self.errors/self.changes)*100)/16.5)
+            if terningkast < 1:
+                terningkast = 1
             dice(terningkast)
